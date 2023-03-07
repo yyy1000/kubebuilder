@@ -84,3 +84,10 @@ type Bundle interface {
 	// The returned list should be flattened, i.e., no plugin bundles should be part of this list.
 	Plugins() []Plugin
 }
+
+// Generate is an interface for plugins that provide a `generate` subcommand.
+type Generate interface {
+	Plugin
+	// GetGenerateSubcommand returns the underlying CreateAPISubcommand interface.
+	GetGenerateSubcommand() GenerateSubcommand
+}

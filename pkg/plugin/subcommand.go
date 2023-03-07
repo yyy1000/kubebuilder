@@ -92,3 +92,9 @@ type CreateWebhookSubcommand interface {
 type EditSubcommand interface {
 	Subcommand
 }
+
+// GenerateAPISubcommand is an interface that represents a `create api` subcommand.
+type GenerateSubcommand interface {
+	Subcommand
+	RequiresResource
+}

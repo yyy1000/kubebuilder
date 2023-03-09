@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"strings"
 
+	"sigs.k8s.io/kubebuilder/v3/pkg/cli/alpha"
 	"github.com/spf13/cobra"
 )
 
@@ -29,6 +30,7 @@ const (
 
 var alphaCommands = []*cobra.Command{
 	newAlphaCommand(),
+	alpha.NewScaffoldCommand(),
 }
 
 func newAlphaCommand() *cobra.Command {

@@ -1,4 +1,4 @@
-# Kustomize (kustomize/v1)
+# [Deprecated] Kustomize (kustomize/v1)
 
 <aside class="note warning">
 <h1>Deprecated</h1>
@@ -24,7 +24,7 @@ This plugin uses [kubernetes-sigs/kustomize](https://github.com/kubernetes-sigs/
 - linux/arm64
 - darwin/amd64
 
-You might want to consider using [kustomize/v2-alpha](./kustomize-v2-alpha.md) if you are looking to scaffold projects in
+You might want to consider using [kustomize/v2](./kustomize-v2.md) if you are looking to scaffold projects in
 other architecture environments. (i.e. if you are looking to scaffold projects with Apple Silicon/M1 (`darwin/arm64`) this plugin 
 will not work, more info: [kubernetes-sigs/kustomize#4612](https://github.com/kubernetes-sigs/kustomize/issues/4612)).
 </aside> 
@@ -53,15 +53,16 @@ If you are looking to scaffold the kustomize configuration manifests for your ow
 
 If you are looking to define that your language plugin should use kustomize use the [Bundle Plugin][bundle]
 to specify that your language plugin is a composition with your plugin responsible for scaffold
-all that is laguage specific and kustomize for its configuration, see: 
+all that is language specific and kustomize for its configuration, see: 
 
 ```go
 	// Bundle plugin which built the golang projects scaffold by Kubebuilder go/v3
 	// The follow code is creating a new plugin with its name and version via composition
 	// You can define that one plugin is composite by 1 or Many others plugins
-	gov3Bundle, _ := plugin.NewBundle(golang.DefaultNameQualifier, plugin.Version{Number: 3},
-		kustomizecommonv1.Plugin{}, // scaffold the config/ directory and all kustomize files
-		golangv3.Plugin{}, // Scaffold the Golang files and all that specific for the language e.g. go.mod, apis, controllers
+	gov3Bundle, _ := plugin.NewBundle(plugin.WithName(golang.DefaultNameQualifier), 
+		plugin.WithVersion(plugin.Version{Number: 3}),
+		plugin.WithPlugins(kustomizecommonv1.Plugin{}, golangv3.Plugin{}), // scaffold the config/ directory and all kustomize files
+		// Scaffold the Golang files and all that specific for the language e.g. go.mod, apis, controllers
 	)
 ```
 

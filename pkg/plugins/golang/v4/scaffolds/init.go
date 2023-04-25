@@ -27,7 +27,7 @@ import (
 	"sigs.k8s.io/kubebuilder/v3/pkg/machinery"
 	"sigs.k8s.io/kubebuilder/v3/pkg/plugins"
 	kustomizecommonv1 "sigs.k8s.io/kubebuilder/v3/pkg/plugins/common/kustomize/v1"
-	kustomizecommonv2alpha "sigs.k8s.io/kubebuilder/v3/pkg/plugins/common/kustomize/v2-alpha"
+	kustomizecommonv2alpha "sigs.k8s.io/kubebuilder/v3/pkg/plugins/common/kustomize/v2"
 	"sigs.k8s.io/kubebuilder/v3/pkg/plugins/golang/v4/scaffolds/internal/templates"
 	"sigs.k8s.io/kubebuilder/v3/pkg/plugins/golang/v4/scaffolds/internal/templates/hack"
 )
@@ -106,11 +106,11 @@ func (s *initScaffolder) Scaffold() error {
 	// in order to support it
 	kustomizeVersion = kustomizecommonv1.KustomizeVersion
 	kustomizev2 := kustomizecommonv2alpha.Plugin{}
-	gov4alpha := "go.kubebuilder.io/v4-alpha"
+	gov4 := "go.kubebuilder.io/v4"
 	pluginKeyForKustomizeV2 := plugin.KeyFor(kustomizev2)
 
 	for _, pluginKey := range s.config.GetPluginChain() {
-		if pluginKey == pluginKeyForKustomizeV2 || pluginKey == gov4alpha {
+		if pluginKey == pluginKeyForKustomizeV2 || pluginKey == gov4 {
 			kustomizeVersion = kustomizecommonv2alpha.KustomizeVersion
 			break
 		}
